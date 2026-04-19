@@ -1,0 +1,74 @@
+# MCP 数据库服务配置文件模板
+# 使用方式：java -jar db-mcp-server.jar --config /path/to/this-file.yml
+
+# ========================
+# 数据源配置（可配置多个）
+# ========================
+datasources:
+  # MySQL 数据源示例
+  - name: user_db                                      # 数据源名称（大小写不敏感）
+    type: mysql                                        # 数据库类型：mysql 或 tdengine
+    url: jdbc:mysql://localhost:3306/userdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    pool:
+      minimumIdle: 2                                   # 最小空闲连接数
+      maximumPoolSize: 10                              # 最大连接数
+      connectionTimeoutMs: 30000                       # 获取连接超时（毫秒）
+      idleTimeoutMs: 600000                            # 空闲连接超时（毫秒）
+      maxLifetimeMs: 1800000                           # 连接最大存活时间（毫秒）
+
+  # 多个 MySQL 数据源
+  - name: order_db
+    type: mysql
+    url: jdbc:mysql://localhost:3306/orderdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+  # TDengine 数据源示例（WebSocket/RS 方式，无需安装客户端）
+  - name: sensor_db
+    type: tdengine
+    url: jdbc:TAOS-RS://localhost:6041/sensordb?useSSL=false&batchfetch=true
+    username: root
+    password: taosdata
+
+# ========================
+# SQL 执行限制
+# ========================
+sql:
+  maxRows: 500              # 查询最大返回行数，超出截断并标记 truncated=true
+  timeoutSeconds: 5         # SQL 执行超时秒数
+  maxLength: 10000          # SQL 最大字符长度
+  batchInsertMaxRows: 1000  # 批量 INSERT 最大行数
+
+# ========================
+# 元数据缓存
+# ========================
+cache:
+  preloadOnStartup: true          # 启动时预热所有数据源元数据（失败则服务启动失败）
+  refreshIntervalSeconds: 300     # 定时刷新间隔（秒），默认 5 分钟
+
+# ========================
+# 健康检查
+# ========================
+health:
+  checkIntervalSeconds: 30        # 数据源健康探测间隔（秒）
+
+# ========================
+# MCP 行为
+# ========================
+mcp:
+  exitOnDisconnect: true          # stdio 客户端断开后进程自动退出（防止孤儿进程）
+
+# ========================
+# HTTP 调试服务（仅本地调试用）
+# ========================
+http:
+  enabled: true                   # 是否启用 HTTP 调试服务
+  host: 127.0.0.1                 # 监听地址（仅本地回环，禁止改为 0.0.0.0）
+  port: 0                         # 监听端口，0 表示随机可用端口（启动时打印实际端口）
+
+# ========================
+# 时区
+# ========================
+timezone: Asia/Shanghai

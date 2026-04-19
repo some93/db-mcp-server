@@ -1,0 +1,3 @@
+@echo off
+powershell -ExecutionPolicy Bypass -Command "$b='{\""datasourceName\"":\"\"root_db\"",\"\"sql\"":\"\"SELECT * FROM sys.user_summary LIMIT 3\"\"}'; $r=Invoke-WebRequest -Uri 'http://127.0.0.1:11198/api/query' -Method POST -Body $b -ContentType 'application/json' -UseBasicParsing; $r.Content | Out-File 'd:\Workspace\db-mcp-server\r1.txt'"
+powershell -ExecutionPolicy Bypass -Command "$b='{\""datasourceName\"":\"\"some_db\"",\"\"sql\"":\"\"SELECT table_name FROM information_schema.tables WHERE table_schema=''ry'' LIMIT 5\"\"}'; $r=Invoke-WebRequest -Uri 'http://127.0.0.1:11198/api/query' -Method POST -Body $b -ContentType 'application/json' -UseBasicParsing; $r.Content | Out-File 'd:\Workspace\db-mcp-server\r2.txt'"

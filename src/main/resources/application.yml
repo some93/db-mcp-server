@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: db-mcp-server
+  main:
+    banner-mode: off
+    log-startup-info: false
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+
+datasources:
+  - name: root_db
+    type: mysql
+    url: jdbc:mysql://localhost:3306/sys?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: rootroot
+    pool:
+      minimumIdle: 1
+      maximumPoolSize: 5
+
+  - name: some_db
+    type: mysql
+    url: jdbc:mysql://localhost:3306/ry?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: some
+    password: somesome
+    pool:
+      minimumIdle: 1
+      maximumPoolSize: 5
+
+sql:
+  maxRows: 500
+  timeoutSeconds: 5
+  maxLength: 10000
+  batchInsertMaxRows: 1000
+
+cache:
+  preloadOnStartup: true
+  refreshIntervalSeconds: 300
+
+health:
+  checkIntervalSeconds: 30
+
+mcp:
+  exitOnDisconnect: false
+
+http:
+  enabled: true
+  host: 127.0.0.1
+  port: 0
+
+timezone: Asia/Shanghai
