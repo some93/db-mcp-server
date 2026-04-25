@@ -1,0 +1,36 @@
+# MCP 数据库服务最小配置示例：stdio-only
+# 使用场景：Claude Desktop / 本地 stdio MCP，不启用 HTTP MCP 和 HTTP 调试服务
+
+datasources:
+  - name: user_db
+    type: mysql
+    url: jdbc:mysql://localhost:3306/userdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+sql:
+  maxRows: 500
+  timeoutSeconds: 5
+  maxLength: 10000
+  batchInsertMaxRows: 1000
+
+cache:
+  preloadOnStartup: true
+  refreshIntervalSeconds: 300
+
+health:
+  checkIntervalSeconds: 30
+
+mcp:
+  stdio:
+    enabled: true
+    exitOnDisconnect: true
+  http:
+    enabled: false
+
+http:
+  enabled: false
+  host: 127.0.0.1
+  port: 0
+
+timezone: Asia/Shanghai

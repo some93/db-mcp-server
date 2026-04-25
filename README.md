@@ -2,7 +2,12 @@
 
 ## 概述
 
-`db-mcp-server` 是一个基于 Java 11 + Spring Boot 2.7.18 构建的 **MCP（Model Context Protocol）数据库网关**，通过标准化工具接口让 AI（Claude）安全访问 MySQL 和 TDengine 数据库。
+`db-mcp-server` 是一个基于 Java 11 + Spring Boot 2.7.18 构建的 **MCP（Model Context Protocol）数据库网关**，通过标准化工具接口让 AI（Claude）安全访问 MySQL 和 TDengine 数据库，当前同时支持：
+
+- `stdio MCP`
+- `HTTP MCP`
+- `HTTP + SSE MCP`
+- 本机 `/api/*` 调试接口
 
 每个业务项目独立启动一个 JVM 进程，绑定自己的数据库，互不干扰：
 
@@ -22,6 +27,15 @@ java -Xms32m -Xmx128m -XX:TieredStopAtLevel=1 \
 ```
 
 配置文件模板见 [example-config.yml](doc/example-config.yml)。
+如果想直接复制最小可用版本，也可以用：
+
+- [example-config-stdio.yml](doc/example-config-stdio.yml)
+- [example-config-http-sse.yml](doc/example-config-http-sse.yml)
+
+常用最小配置建议：
+
+- `stdio-only`：`mcp.stdio.enabled=true`、`mcp.http.enabled=false`、`http.enabled=false`
+- `http+sse`：`mcp.stdio.enabled=false`、`mcp.http.enabled=true`，并显式设置 `mcp.http.path` / `mcp.http.ssePath`
 
 ### Claude Desktop 配置
 
@@ -46,8 +60,8 @@ java -Xms32m -Xmx128m -XX:TieredStopAtLevel=1 \
 
 说明：
 
-- 当前对外能力共 13 个接口：11 个 MCP 工具 + 2 个 HTTP 健康端点（`/health`、`/ready`）。
-- 下表只统计 MCP `tools/list` 中暴露的 11 个工具，不把 HTTP 健康端点计入工具数。
+- 当前对外能力共 15 个接口：11 个 MCP 工具 + 2 个 MCP HTTP 传输端点（`POST /mcp`、`GET /mcp/sse`）+ 2 个 HTTP 健康端点（`/health`、`/ready`）。
+- 下表只统计 MCP `tools/list` 中暴露的 11 个工具，不把 HTTP 传输端点和健康端点计入工具数。
 
 ### 元数据探查
 
@@ -97,6 +111,53 @@ POST /api/write        {"datasourceName": "", "sql": ""}
 POST /api/create-table {"datasourceName": "", "sql": ""}
 POST /api/explain      {"datasourceName": "", "sql": ""}
 POST /api/refresh-metadata {"datasourceNames": [], "mode": "SYNC"}
+```
+
+## MCP HTTP + SSE 接口
+
+除 `stdio` 外，当前也支持 MCP over HTTP：
+
+```
+POST /mcp         # MCP JSON-RPC 请求入口（initialize / tools/list / tools/call）
+GET  /mcp/sse     # SSE 事件流通道，返回 session 事件与后续服务端通知
+```
+
+当前第一阶段行为：
+
+- `tools/call` 仍通过 `POST /mcp` 同步返回结果
+- `GET /mcp/sse` 先提供会话与事件通道能力
+- `mcp.http.path` / `mcp.http.ssePath` 已生效，可改为自定义 MCP HTTP / SSE 路径
+- `/api/*` 继续保留为调试接口，不承载 MCP 协议
+
+可选的第二阶段异步模式：
+
+- 客户端先连接 `GET /mcp/sse` 获取 `sessionId`
+- 之后调用 `POST /mcp` 时带 `X-Mcp-Session-Id`
+- 在 `tools/call.params` 中传 `async=true` 时，请求会立即返回受理结果
+- 实际工具执行结果通过 SSE `tool_progress` / `tool_result` 事件回传
+
+示例配置：
+
+```yaml
+mcp:
+  http:
+    enabled: true
+    path: /custom-mcp
+    ssePath: /custom-mcp/events
+```
+
+如果只想跑 HTTP + SSE，不想保留 stdio，建议同时配置：
+
+```yaml
+mcp:
+  stdio:
+    enabled: false
+  http:
+    enabled: true
+    path: /custom-mcp
+    ssePath: /custom-mcp/events
+http:
+  enabled: true
 ```
 
 ---
@@ -180,7 +241,7 @@ POST /api/refresh-metadata {"datasourceNames": [], "mode": "SYNC"}
 - **元数据预热失败 → 拒绝启动**：任何数据源预热失败，服务抛出异常不启动。
 - **启动时权限探测**：每个 MySQL 数据源初始化后，自动执行一次轻量权限探测查询。若账号权限不足，在 stderr 打印 WARN 日志并附带 GRANT 修复命令；探测失败不中断启动，允许服务以降级状态运行。
 - **运行时权限识别**：执行 SQL 遇到 MySQL 权限错误（错误码 1044/1045/1142/1143）时，返回 `DATASOURCE_PERMISSION_DENIED`，消息中包含完整 GRANT 修复命令，而非通用的 `SQL_EXECUTE_ERROR`。
-- **stdout 严格隔离**：stdout 仅输出 MCP JSON-RPC 协议消息，所有日志（包括审计）写入 stderr，不污染 MCP 通道。
+- **stdout 严格隔离**：在 `stdio MCP` 模式下，stdout 仅输出 MCP JSON-RPC 协议消息，所有日志（包括审计）写入 stderr，不污染 MCP 通道。
 - **连接断开自动退出**：`mcp.exitOnDisconnect=true` 时，Claude Desktop 关闭连接后 JVM 自动退出，无孤儿进程。
 
 ---
@@ -191,6 +252,7 @@ POST /api/refresh-metadata {"datasourceNames": [], "mode": "SYNC"}
 ┌─────────────────────────────────────────────────────┐
 │ Transport                                           │
 │   McpStdioServer   — JSON-RPC 2.0 over stdio        │
+│   McpTransportController — MCP over HTTP + SSE      │
 │   McpHttpController  — HTTP REST (127.0.0.1)          │
 │   HealthController — /health  /ready                │
 ├─────────────────────────────────────────────────────┤

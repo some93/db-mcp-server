@@ -1,5 +1,17 @@
 # MCP 数据库服务配置文件模板
 # 使用方式：java -jar db-mcp-server.jar --config /path/to/this-file.yml
+#
+# 最小示例：
+# 1) 仅 stdio：
+#    mcp.stdio.enabled=true
+#    mcp.http.enabled=false
+#    http.enabled=false
+# 2) HTTP + SSE：
+#    mcp.stdio.enabled=false
+#    mcp.http.enabled=true
+#    mcp.http.path=/custom-mcp
+#    mcp.http.ssePath=/custom-mcp/events
+#    http.enabled=true
 
 # ========================
 # 数据源配置（可配置多个）
@@ -55,10 +67,19 @@ health:
   checkIntervalSeconds: 30        # 数据源健康探测间隔（秒）
 
 # ========================
-# MCP 行为
+# MCP 传输配置
 # ========================
 mcp:
-  exitOnDisconnect: true          # stdio 客户端断开后进程自动退出（防止孤儿进程）
+  exitOnDisconnect: true          # 兼容旧配置：stdio 客户端断开后进程自动退出（防止孤儿进程）
+  stdio:
+    enabled: true
+    exitOnDisconnect: true        # 新配置写法，优先级高于上面的兼容字段
+  http:
+    enabled: true                 # 是否启用 MCP over HTTP / SSE
+    path: /mcp                    # MCP JSON-RPC HTTP 入口；也可以改成 /custom-mcp
+    ssePath: /mcp/sse             # SSE 事件流入口；也可以改成 /custom-mcp/events
+    sessionTimeoutSeconds: 1800   # SSE 会话超时
+    heartbeatSeconds: 15          # SSE 心跳间隔
 
 # ========================
 # HTTP 调试服务（仅本地调试用）
@@ -72,3 +93,44 @@ http:
 # 时区
 # ========================
 timezone: Asia/Shanghai
+
+# ========================
+# 最小配置示例：stdio-only
+# ========================
+# datasources:
+#   - name: user_db
+#     type: mysql
+#     url: jdbc:mysql://localhost:3306/userdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+#     username: root
+#     password: 123456
+# mcp:
+#   stdio:
+#     enabled: true
+#     exitOnDisconnect: true
+#   http:
+#     enabled: false
+# http:
+#   enabled: false
+
+# ========================
+# 最小配置示例：http+sse
+# ========================
+# datasources:
+#   - name: user_db
+#     type: mysql
+#     url: jdbc:mysql://localhost:3306/userdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+#     username: root
+#     password: 123456
+# mcp:
+#   stdio:
+#     enabled: false
+#   http:
+#     enabled: true
+#     path: /custom-mcp
+#     ssePath: /custom-mcp/events
+#     sessionTimeoutSeconds: 1800
+#     heartbeatSeconds: 15
+# http:
+#   enabled: true
+#   host: 127.0.0.1
+#   port: 0

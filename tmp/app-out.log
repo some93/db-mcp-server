@@ -1,0 +1,172 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< com.mcp:db-mcp-server >------------------------
+[INFO] Building db-mcp-server 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:2.7.18:run (default-cli) > test-compile @ db-mcp-server >>>
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ db-mcp-server ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 2 resources
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ db-mcp-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ db-mcp-server ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ db-mcp-server ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:2.7.18:run (default-cli) < test-compile @ db-mcp-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:2.7.18:run (default-cli) @ db-mcp-server ---
+[INFO] Attaching agents: []
+2026-04-24 23:56:34.035 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-127.0.0.1-auto-1"]
+2026-04-24 23:56:34.051 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-24 23:56:34.051 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2026-04-24 23:56:34.117 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-24 23:56:34.159 [main] INFO  c.m.i.datasource.DataSourceManager - Initializing datasource [root_db] type=mysql url=jdbc:mysql://localhost:3306/sys?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+2026-04-24 23:56:34.475 [main] INFO  c.m.i.datasource.DataSourceManager - Datasource [root_db] initialized, pool size=5
+2026-04-24 23:56:34.484 [main] INFO  c.m.i.datasource.DataSourceManager - Datasource [root_db] permission probe passed.
+2026-04-24 23:56:34.491 [main] INFO  c.m.i.datasource.DataSourceManager - Initializing datasource [some_db] type=mysql url=jdbc:mysql://localhost:3306/ry?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+2026-04-24 23:56:34.559 [main] INFO  c.m.i.datasource.DataSourceManager - Datasource [some_db] initialized, pool size=5
+2026-04-24 23:56:34.567 [main] INFO  c.m.i.datasource.DataSourceManager - Datasource [some_db] permission probe passed.
+2026-04-24 23:56:34.567 [main] INFO  c.m.i.datasource.DataSourceManager - Total datasources loaded: 2
+2026-04-24 23:56:34.567 [main] INFO  com.mcp.domain.cache.MetadataCache - Preloading metadata cache for 2 datasources...
+2026-04-24 23:56:34.593 [main] INFO  com.mcp.domain.cache.MetadataCache - Metadata preloaded for [root_db]
+2026-04-24 23:56:34.600 [main] INFO  com.mcp.domain.cache.MetadataCache - Metadata preloaded for [some_db]
+2026-04-24 23:56:34.634 [main] INFO  com.mcp.transport.mcp.McpStdioServer - MCP stdio server started.
+2026-04-24 23:56:34.775 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-127.0.0.1-auto-1"]
+2026-04-24 23:56:34.796 [main] INFO  com.mcp.bootstrap.HttpPortLogger - HTTP debug server listening on http://127.0.0.1:9348
+2026-04-24 23:56:34.796 [main] INFO  com.mcp.bootstrap.HttpPortLogger - Health check: http://127.0.0.1:9348/health
+2026-04-24 23:57:14.805 [http-nio-127.0.0.1-auto-1-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-24 23:57:17.094 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:17.094+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":56,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.094 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:17.094+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":45,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.306 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:17.306+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.359 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:17.359+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.616 [http-nio-127.0.0.1-auto-1-exec-2] INFO  audit - {"timestamp":"2026-04-24T23:57:17.616+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.631 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:17.631+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.947 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:17.947+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:17.958 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:17.958+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:18.233 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:18.233+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":10,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:18.548 [http-nio-127.0.0.1-auto-1-exec-2] INFO  audit - {"timestamp":"2026-04-24T23:57:18.548+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:18.839 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:18.839+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:19.139 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:19.139+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:19.348 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:19.348+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:19.608 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:19.608+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":10,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:19.806 [http-nio-127.0.0.1-auto-1-exec-2] INFO  audit - {"timestamp":"2026-04-24T23:57:19.806+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:19.824 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:19.824+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:20.074 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:20.074+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:20.149 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:20.149+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:20.456 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:20.456+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:20.533 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:20.533+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:20.857 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:20.857+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:21.047 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:21.047+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:21.580 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:21.580+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":6,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:21.747 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:21.747+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":6,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:21.839 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:21.839+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.024 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:22.024+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":10,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.098 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:22.098+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.399 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:22.399+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":10,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.463 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:22.463+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":7,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.797 [http-nio-127.0.0.1-auto-1-exec-2] INFO  audit - {"timestamp":"2026-04-24T23:57:22.797+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:22.872 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:22.872+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:23.149 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:23.149+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":10,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:23.522 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:23.522+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:23.824 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:23.824+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:23.834 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:23.834+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:24.032 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:24.032+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:24.339 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:24.339+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:24.556 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:24.556+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:24.741 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:24.740+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:24.872 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:24.872+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":25,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:25.024 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:25.024+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:25.131 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:25.131+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":9,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:25.714 [http-nio-127.0.0.1-auto-1-exec-9] INFO  audit - {"timestamp":"2026-04-24T23:57:25.714+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":9,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:25.907 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:25.907+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.206 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:26.206+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.413 [http-nio-127.0.0.1-auto-1-exec-6] INFO  audit - {"timestamp":"2026-04-24T23:57:26.413+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":6,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.532 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:26.532+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.596 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:26.596+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":7,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.830 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:26.830+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":6,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.956 [http-nio-127.0.0.1-auto-1-exec-2] INFO  audit - {"timestamp":"2026-04-24T23:57:26.956+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:26.991 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:26.991+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:27.289 [http-nio-127.0.0.1-auto-1-exec-7] INFO  audit - {"timestamp":"2026-04-24T23:57:27.289+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":7,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:27.324 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:27.324+0800","tool":"executeQuery","datasource":"root_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:27.616 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:27.616+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:28.026 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:28.026+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:28.213 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:28.213+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:28.563 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:28.563+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:28.797 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:28.797+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:29.089 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:29.089+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:29.297 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:29.297+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:29.539 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:29.539+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:29.797 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:29.797+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:30.047 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:30.047+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:30.281 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:30.281+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:30.489 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:30.489+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:30.780 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:30.780+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:30.956 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:30.956+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:31.222 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:31.222+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:31.440 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:31.440+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:31.722 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:31.722+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:31.922 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:31.922+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:32.205 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:32.205+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:32.489 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:32.489+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":8,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:32.597 [http-nio-127.0.0.1-auto-1-exec-3] INFO  audit - {"timestamp":"2026-04-24T23:57:32.597+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:32.839 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:32.839+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:33.130 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:33.130+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:33.389 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:33.389+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":9,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:33.638 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:33.638+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":7,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:33.864 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:33.864+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:34.097 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:34.097+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:34.338 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:34.338+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:34.551 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:34.551+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:34.805 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:34.805+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:35.056 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:35.056+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:35.280 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:35.280+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:35.571 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:35.564+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:35.805 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:35.805+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:36.107 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:36.107+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:36.310 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:36.310+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:36.581 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:36.581+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:36.846 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:36.846+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:37.342 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:37.342+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":5,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:37.687 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:37.687+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:37.980 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:37.980+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:38.210 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:38.210+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:38.498 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:38.498+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:38.819 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:38.819+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:39.206 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:39.206+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:39.493 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:39.493+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:39.828 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:39.828+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:40.039 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:40.039+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:40.319 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:40.319+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:40.657 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:40.657+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:40.923 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:40.923+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:41.218 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:41.218+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:41.523 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:41.523+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:41.791 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:41.791+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:42.048 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:42.048+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":0,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:42.359 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:42.359+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:42.665 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:42.665+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:43.025 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:43.025+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:43.383 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:43.383+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:43.538 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:43.538+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:43.906 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:43.906+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":2,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:44.055 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:44.055+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:44.431 [http-nio-127.0.0.1-auto-1-exec-5] INFO  audit - {"timestamp":"2026-04-24T23:57:44.431+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:44.584 [http-nio-127.0.0.1-auto-1-exec-8] INFO  audit - {"timestamp":"2026-04-24T23:57:44.584+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:44.784 [http-nio-127.0.0.1-auto-1-exec-10] INFO  audit - {"timestamp":"2026-04-24T23:57:44.782+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":1,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:44.963 [http-nio-127.0.0.1-auto-1-exec-1] INFO  audit - {"timestamp":"2026-04-24T23:57:44.963+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":3,"errorCode":null,"errorMsg":null}
+2026-04-24 23:57:45.180 [http-nio-127.0.0.1-auto-1-exec-4] INFO  audit - {"timestamp":"2026-04-24T23:57:45.179+0800","tool":"executeQuery","datasource":"some_db","sql":"SELECT 1","success":true,"durationMs":4,"errorCode":null,"errorMsg":null}
+2026-04-25 10:00:10.486 [hikari-root_db housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - hikari-root_db - Thread starvation or clock leap detected (housekeeper delta=9h52m5s747ms420µs200ns).
+2026-04-25 10:00:10.565 [hikari-some_db housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - hikari-some_db - Thread starvation or clock leap detected (housekeeper delta=9h52m5s742ms804µs500ns).

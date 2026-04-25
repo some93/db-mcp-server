@@ -1,0 +1,39 @@
+# MCP 数据库服务最小配置示例：http+sse
+# 使用场景：HTTP MCP + SSE 客户端接入，不启用 stdio MCP
+
+datasources:
+  - name: user_db
+    type: mysql
+    url: jdbc:mysql://localhost:3306/userdb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+sql:
+  maxRows: 500
+  timeoutSeconds: 5
+  maxLength: 10000
+  batchInsertMaxRows: 1000
+
+cache:
+  preloadOnStartup: true
+  refreshIntervalSeconds: 300
+
+health:
+  checkIntervalSeconds: 30
+
+mcp:
+  stdio:
+    enabled: false
+  http:
+    enabled: true
+    path: /custom-mcp
+    ssePath: /custom-mcp/events
+    sessionTimeoutSeconds: 1800
+    heartbeatSeconds: 15
+
+http:
+  enabled: true
+  host: 127.0.0.1
+  port: 0
+
+timezone: Asia/Shanghai

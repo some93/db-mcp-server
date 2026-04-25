@@ -31,6 +31,8 @@ public class DbMcpServerApplication {
         // 将外部 YAML 中的 HTTP 配置注入 Spring 环境
         System.setProperty("server.address", appConfig.getHttp().getHost());
         System.setProperty("server.port", String.valueOf(appConfig.getHttp().getPort()));
+        System.setProperty("mcp.http.path", appConfig.getMcp().getHttp().getPath());
+        System.setProperty("mcp.http.ssePath", appConfig.getMcp().getHttp().getSsePath());
 
         SpringApplication.run(DbMcpServerApplication.class, args);
     }

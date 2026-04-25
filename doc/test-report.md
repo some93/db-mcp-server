@@ -1,6 +1,6 @@
 # db-mcp-server 测试报告
 
-**更新时间：** 2026-04-18  
+**更新时间：** 2026-04-24  
 **测试环境：** Windows 11 / Java 11 / MySQL 8.0  
 **服务版本：** 1.0.0  
 **HTTP 端口：** 11198  
@@ -53,7 +53,7 @@
 
 当前 `mvn test` 已通过：
 
-- 测试总数：60
+- 测试总数：74
 - 失败：0
 - 错误：0
 - 跳过：0
@@ -89,6 +89,12 @@
   - 连接池关闭后，`quickCheck` 会标记为 `DOWN` 并抛出异常
 - `MetadataCacheIntegrationTest`
   - 并发刷新与并发读取同时进行时，缓存仍保持可读且结果结构稳定
+- `McpProtocolServiceTest`
+  - 覆盖 `initialize` / `tools/list` / `tools/call` / async `tools/call` / unknown method
+- `McpTransportControllerTest`
+  - 覆盖 HTTP MCP 请求入口、非法 session 校验、session 透传与 SSE 建连
+- `SseSessionManagerTest`
+  - 覆盖 SSE session 注册、completion 清理与超时回收
 
 ---
 
@@ -299,24 +305,36 @@ POST /api/query
 | 事务失败整体回滚 | 集成测试覆盖 | ✅ MySqlWriteExecutorIntegrationTest |
 | 健康恢复与连接池关闭降级 | 集成测试覆盖 | ✅ HealthServiceIntegrationTest |
 | 缓存并发刷新与读取 | 集成测试覆盖 | ✅ MetadataCacheIntegrationTest |
+| MCP 协议核心分发 | 单元测试覆盖 | ✅ McpProtocolServiceTest |
+| HTTP MCP + SSE 入口 | 单元测试覆盖 | ✅ McpTransportControllerTest |
 
 ---
 
 ## 结论
 
-服务核心功能完整，当前自动化测试 60 项全部通过，主要边界条件、关键失败路径与基础集成场景已补回归覆盖。
+服务核心功能完整，当前自动化测试 74 项全部通过，主要边界条件、关键失败路径、基础集成场景以及 HTTP + SSE MCP 第一阶段入口与第二阶段异步 `tools/call` 已补回归覆盖。
+
+补充说明：
+
+- `mcp.http.path` / `mcp.http.ssePath` 现已作为动态路由生效
+- 未配置时默认回退到 `POST /mcp` / `GET /mcp/sse`
 
 剩余待验证项：
 
-- 在真实数据库环境下执行轻量并发冒烟/压测
 - 校验 `/health`、`/ready`、`/api/query`、`/api/write` 在持续请求下的稳定性
 - 验证 TDengine 实例接入时的读写和异常路径
+
+已完成的真实环境验证：
+
+- 已按 `doc/smoke-load-test.md` 在真实 MySQL 环境执行：
+  - `root_db` 冒烟：20 请求 / 并发 4，100% 成功
+  - `some_db` 轻压测：100 请求 / 并发 10，100% 成功
 
 ---
 
 ## Code Review 问题清单（2026-04-18）
 
-> 由资深 Java 开发 + AI 测试工程师联合审查，共 91 个源文件 ~4847 行，当前自动化测试总数 60（含单元测试与基础集成测试）。
+> 由资深 Java 开发 + AI 测试工程师联合审查，共 87 个 Java 源文件，当前自动化测试总数 74（含单元测试与基础集成测试）。
 
 ### Critical（P0）— 已完成修复并补回归
 

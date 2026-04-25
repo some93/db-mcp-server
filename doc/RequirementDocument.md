@@ -86,26 +86,28 @@
 
 ### 3.6 运行与可观测性
 
-- 同时支持 `stdio` MCP 服务和 HTTP 调试服务，两者同时启动。
+- 同时支持 `stdio MCP`、`HTTP MCP`、`HTTP + SSE MCP` 与 HTTP 调试服务，可按配置选择启用。
 - **stdio 是主模式**：Claude Desktop 启动时拉起进程，断开连接后进程自动退出。
-- **HTTP 是辅助调试模式**：本机回环地址，随机端口，无鉴权，用于开发期验证。
+- **HTTP MCP / HTTP + SSE MCP**：用于远程或本地 HTTP 客户端接入，协议入口为 `POST /mcp`，事件流入口为 `GET /mcp/sse`。
+- **HTTP 调试接口**：本机回环地址，随机端口，无鉴权，用于开发期验证。
 - 配置文件密码明文存储，YAML 格式，每个项目独立一份配置文件。
 - 默认记录完整原始 SQL 日志。
 - 健康接口拆分为 `/health` 和 `/ready`。
 - `/ready` 只有所有数据源正常时才返回就绪。
-- 所有 MCP 工具和 HTTP 接口统一返回结构：`success`、`code`、`message`、`data`、`costMs`。
+- MCP 工具调用层继续遵循 JSON-RPC / MCP 协议；业务结果体仍统一采用 `McpResponse` 结构：`success`、`code`、`message`、`data`、`costMs`。
 - **启动时权限探测**：每个 MySQL 数据源初始化后执行轻量权限探测；权限不足时 WARN 日志附 GRANT 命令，不中断启动。
 - **运行时权限错误识别**：MySQL 权限错误统一返回 `DATASOURCE_PERMISSION_DENIED`，消息中包含 GRANT 修复建议。
 
-## 4. 接口清单（13个）
+## 4. 接口清单（15个）
 
 接口按四组设计：元数据探查、执行、缓存与运维、服务状态。
 
 口径说明：
 
 - MCP 对外暴露 11 个工具，对应 `tools/list` 返回结果。
+- HTTP MCP 额外提供 2 个协议入口：`POST /mcp`、`GET /mcp/sse`。
 - HTTP 侧另外提供 2 个健康端点：`/health`、`/ready`。
-- 因此本文档总数写为 13 个接口，而 README 中的工具数写为 11 个，两者统计口径不同。
+- 因此本文档总数写为 15 个接口，而 README 中的工具数写为 11 个，两者统计口径不同。
 
 > 说明：相比原18接口方案，本版本做了精简：
 > - 砍掉 `validateSql`（内部工具信任度高，合并到各执行接口前置校验）
@@ -361,7 +363,7 @@
 
 - 部分成功场景使用 `code=PARTIAL_SUCCESS`。
 
-### 4.4 服务状态接口（3个）
+### 4.4 服务状态接口（5个）
 
 #### 4.4.1 `getServiceStatus`
 
@@ -394,6 +396,28 @@
 规则：
 
 - 所有数据源都正常时才就绪。
+
+#### 4.4.4 `POST /mcp`
+
+用途：
+
+- MCP over HTTP 的 JSON-RPC 请求入口。
+
+规则：
+
+- 第一阶段支持 `initialize`、`tools/list`、`tools/call`
+- `tools/call` 继续同步返回
+
+#### 4.4.5 `GET /mcp/sse`
+
+用途：
+
+- MCP over HTTP 的 SSE 事件流通道。
+
+规则：
+
+- 第一阶段用于建立会话、发送 heartbeat 和服务端事件
+- 后续阶段再扩展长任务工具的流式结果
 
 ## 5. 统一返回契约
 
@@ -500,7 +524,7 @@ java -Xms32m -Xmx128m -XX:TieredStopAtLevel=1 \
      --config projectA.yml
 ```
 
-- stdio 和 HTTP 调试服务同时启动。
+- stdio、HTTP MCP、HTTP + SSE MCP 与 HTTP 调试服务可同时启动。
 - stdout 只输出 MCP 协议消息，stderr 输出所有日志，严格隔离。
 - HTTP 监听 `127.0.0.1`，端口 auto 分配，启动时打印实际端口。
 - Claude Desktop 断开连接，JVM 进程自动退出，无孤儿进程。
@@ -509,6 +533,7 @@ java -Xms32m -Xmx128m -XX:TieredStopAtLevel=1 \
 
 #### Transport Layer
 - MCP `stdio` 适配器（手写 JSON-RPC 2.0）
+- MCP `HTTP + SSE` 适配器
 - HTTP 调试控制器
 - 健康检查接口（`/health`、`/ready`）
 
@@ -625,7 +650,16 @@ timezone: Asia/Shanghai
 
 # MCP 行为
 mcp:
-  exitOnDisconnect: true   # 客户端断开后进程退出
+  exitOnDisconnect: true   # 兼容旧配置：stdio 客户端断开后进程退出
+  stdio:
+    enabled: true
+    exitOnDisconnect: true
+  http:
+    enabled: true
+    path: /mcp            # 可自定义，例如 /custom-mcp
+    ssePath: /mcp/sse     # 可自定义，例如 /custom-mcp/events
+    sessionTimeoutSeconds: 1800
+    heartbeatSeconds: 15
 
 # HTTP 调试服务
 http:
@@ -695,7 +729,8 @@ Claude Desktop 配置示例：
 - **语言锁定 Java 11**：公司硬约束，不引入团队不熟悉的 Python/Go。
 - **MCP 协议手写**：ralscha starter 要求 Java 17，手写 300 行替代，零依赖风险。
 - **stdio 主模式 + HTTP 辅助**：天然实现项目间数据库隔离，生命周期绑定 Claude 窗口。
+- **新增 HTTP + SSE MCP**：在保留 stdio 的同时，支持基于 `POST /mcp` + `GET /mcp/sse` 的远程接入模式。
 - **砍掉权限控制**：内部小团队不需要，减少维护复杂度。
-- **精简到 13 个接口**：砍掉 `validateSql`、`previewWriteImpact`、`searchMetadata`，合并视图/索引接口，职责更清晰。
+- **当前对外共 15 个接口**：11 个 MCP 工具 + 2 个 MCP HTTP 入口（`POST /mcp`、`GET /mcp/sse`）+ 2 个健康端点；其中真正的 MCP 工具仍是 11 个。
 - **3周可交付**：Week1 跑通核心链路，Week2 完整功能，Week3 TDengine + 稳定性。
 
